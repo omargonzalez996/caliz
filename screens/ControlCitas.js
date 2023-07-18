@@ -5,8 +5,7 @@ export default function ControlCitas() {
 
     return (
         <View style={styles.container}>
-            <Text>Control de Citas</Text>
-            <MaterialIcons name='date-range' size={24} color="black" />
+            <MaterialIcons name='date-range' size={60} color="#9e0059" />
         </View>
     )
 }

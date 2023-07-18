@@ -1,6 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native"
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs"
 import ControlCitas from "./screens/ControlCitas"
 import Historial from "./screens/Historial"
 import HomeScreen from "./screens/HomeScreen"
@@ -11,7 +12,8 @@ import EditCita from "./components/CRUD/EditCita";
 import { MaterialIcons } from '@expo/vector-icons';
 
 const StackHomeScreen = createNativeStackNavigator();
-const StackCrudCitas = createNativeStackNavigator();
+// const StackCrudCitas = createNativeStackNavigator();
+const TopCrudTabs = createMaterialTopTabNavigator();
 
 function StackHome() {
     return (
@@ -22,15 +24,41 @@ function StackHome() {
     )
 }
 
-function StackCrud() {
+// function StackCrud() {
+//     return (
+//         <StackCrudCitas.Navigator>
+//             <StackCrudCitas.Screen />
+//             <StackCrudCitas.Screen />
+//             <StackCrudCitas.Screen />
+//         </StackCrudCitas.Navigator>
+//     )
+// }
+
+function TabCrud() {
     return (
-        <StackCrudCitas.Navigator>
-            <StackCrudCitas.Screen name="controlCitas" component={ControlCitas} />
-            <StackCrudCitas.Screen name="createCita" component={CreateCita} />
-            <StackCrudCitas.Screen name="editCita" component={EditCita} />
-        </StackCrudCitas.Navigator>
+        <TopCrudTabs.Navigator
+            screenOptions={({ route }) => ({
+                tabBarIcon: ({ color, size }) => {
+                    let iconName;
+                    if (route.name == 'control') {
+                        iconName = 'date-range';
+                    } else if (route.name == 'agregar') {
+                        iconName = 'add-circle';
+                    } else if (route.name == 'editar') {
+                        iconName = 'edit';
+                    }
+                    return <MaterialIcons name={iconName} size={20} color={color} />
+                }
+            })}
+        >
+            <TopCrudTabs.Screen name="control" component={ControlCitas} options={{ tabBarShowLabel: false }} />
+            <TopCrudTabs.Screen name="agregar" component={CreateCita} options={{ tabBarShowLabel: false }} />
+            <TopCrudTabs.Screen name="editar" component={EditCita} options={{ tabBarShowLabel: false }} />
+        </TopCrudTabs.Navigator>
     )
 }
+
+
 
 const Tab = createBottomTabNavigator()
 function TabGroup() {
@@ -53,7 +81,7 @@ function TabGroup() {
             })}
         >
             <Tab.Screen name="Inicio" component={HomeScreen} />
-            <Tab.Screen name="Control" component={StackCrud} />
+            <Tab.Screen name="Control" component={TabCrud} />
             <Tab.Screen name="Historial" component={Historial} />
             <Tab.Screen name="Configuracion" component={Configuracion} />
         </Tab.Navigator>

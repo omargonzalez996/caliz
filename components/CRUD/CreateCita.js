@@ -5,8 +5,7 @@ export default function CreateCita() {
 
     return (
         <View style={styles.container}>
-            <Text>CreateCita</Text>
-            <MaterialIcons name='date-range' size={24} color="black" />
+            <MaterialIcons name='add-circle' size={60} color="green" />
         </View>
     )
 }

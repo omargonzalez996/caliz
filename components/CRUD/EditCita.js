@@ -5,8 +5,7 @@ export default function EditCita() {
 
     return (
         <View style={styles.container}>
-            <Text>EditCita</Text>
-            <MaterialIcons name='date-range' size={24} color="black" />
+            <MaterialIcons name='edit' size={60} color="orange" />
         </View>
     )
 }
