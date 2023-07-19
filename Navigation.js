@@ -24,16 +24,6 @@ function StackHome() {
     )
 }
 
-// function StackCrud() {
-//     return (
-//         <StackCrudCitas.Navigator>
-//             <StackCrudCitas.Screen />
-//             <StackCrudCitas.Screen />
-//             <StackCrudCitas.Screen />
-//         </StackCrudCitas.Navigator>
-//     )
-// }
-
 function TabCrud() {
     return (
         <TopCrudTabs.Navigator
