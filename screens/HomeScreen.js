@@ -1,38 +1,49 @@
+import { useEffect, useState } from 'react';
+import { getCitas } from '../Api/supabase';
 import { SafeAreaView } from 'react-native';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
 import CardCita from '../components/CardCita';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export default function HomeScreen() {
+    const [citas, setCitas] = useState([]);
+    const [loading, setLoading] = useState(false)
 
-    const dummyCitas = [
-        { id: '1', date: '2023-08-17', hora: '13:00', paciente: "Raul Lopez", procedimiento: "Chequeo" },
-        { id: '2', date: '2023-08-17', hora: '15:00', paciente: "Isaac Serrato", procedimiento: "Limpieza Dental" },
-        { id: '3', date: '2023-08-18', hora: '10:00', paciente: "Julio Sanchez", procedimiento: "Extracción de muela" },
-        { id: '4', date: '2023-08-18', hora: '12:00', paciente: "Miguel Garcia", procedimiento: "Blanqueamiento" },
-        { id: '5', date: '2023-08-18', hora: '20:00', paciente: "Alex Fernandez", procedimiento: "Cambio de Empastes" },
-        { id: '6', date: '2023-08-18', hora: '13:00', paciente: "Omar Gonzalez", procedimiento: "Acomodada de muelas" },
-        { id: '7', date: '2023-08-18', hora: '15:00', paciente: "Christian Ruiz", procedimiento: "Blanqueamiento" }
-    ]
+    const fetchCitas = async () => {
+        try {
+            setLoading(true)
+            let fetchResult = await getCitas();
+            //console.log('Citas: ', fetchResult);
+            setCitas(fetchResult);
+            setLoading(false)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        fetchCitas();
+    }, [])
 
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.homeHead}>
-                <FontAwesome5 name="tooth" size={24} color="black" />
                 <Text style={{ margin: 5 }}>Proximas Citas</Text>
-                <FontAwesome5 name="tooth" size={24} color="black" />
             </View>
             <ScrollView>
                 <View style={styles.citaCont}>
-                    {dummyCitas.map((cita) => (
-                        <View key={cita.id}>
-                            <CardCita
-                                date={cita.date}
-                                hora={cita.hora}
-                                paciente={cita.paciente}
-                                procedimiento={cita.procedimiento} />
-                        </View>
-                    ))}
+                    {loading ? <MaterialIcons name="cloud-download" size={24} color="black" />
+                        :
+                        citas.map((cita) => (
+                            <View key={cita.id}>
+                                <CardCita
+                                    cita_id={cita.id}
+                                    fecha={cita.fecha}
+                                    hora={cita.hora}
+                                    paciente={cita.Paciente['nombre']}
+                                    procedimiento={cita.Procedimiento['nombre']} />
+                            </View>
+                        ))}
                 </View>
             </ScrollView>
         </SafeAreaView >

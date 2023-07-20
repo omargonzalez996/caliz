@@ -2,15 +2,17 @@ import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, View, Text, Platform, Pressable, Alert } from 'react-native'
 import { AntDesign } from '@expo/vector-icons';
 
-const CardCita = ({ date, hora, paciente, procedimiento }) => {
+const CardCita = ({ cita_id, fecha, hora, paciente, procedimiento }) => {
     const { navigate } = useNavigation();
+
+    //console.log(cita_id, "||", fecha, "||", hora, "||", paciente, "||", procedimiento);
 
     return (
         <View style={[styles.citaCard, styles.shadowProp]}>
             <Pressable
                 style={styles.Apachurrable}
                 onPress={() => {
-                    navigate("detallesCita", { date, hora, paciente, procedimiento })
+                    navigate("detallesCita", { cita_id })
                 }}
             >
                 <AntDesign style={styles.infobutton} name="infocirlce" size={24} color="white" />
@@ -18,13 +20,12 @@ const CardCita = ({ date, hora, paciente, procedimiento }) => {
             <Text style={styles.titulo}>{procedimiento}</Text>
             <Text style={styles.nombre}>{paciente}</Text>
             <View style={styles.dateContainer}>
-                <Text style={styles.fecha}>{date}</Text>
+                <Text style={styles.fecha}>{fecha}</Text>
                 <Text style={styles.hora}>{hora}</Text>
             </View>
         </View>
     )
 }
-
 const styles = StyleSheet.create({
     citaCard: {
         marginTop: 10,

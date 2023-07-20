@@ -1,0 +1,9 @@
+{
+  "status": "success",
+  "data": {
+    "credion_id": 123,
+    "phone": "4423978144",
+    "advance_amount": "4992",
+    "periodicity": "Quincenal"
+  }
+}

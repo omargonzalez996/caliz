@@ -44,8 +44,8 @@ export default function CreateCita() {
                         style={styles.input}
                         underlineColor='#fff'
                         placeholder='Fecha'
-                        value={name}
-                        onChangeText={(text) => setName(text)}
+                        value={date}
+                        onChangeText={(text) => setDate(text)}
                     />
                 </View>
                 <Pressable
