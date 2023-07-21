@@ -8,7 +8,7 @@ const supabaseApiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmF
 
 const supabase = createClient(supabaseURL, supabaseApiKey);
 
-//fetch de todas las citas activas
+// === === === === === === === CITAS  === === === === === === === 
 export async function getCitas() {
     console.log(supabaseURL);
     console.log(supabaseApiKey);
@@ -52,4 +52,30 @@ export async function insertCita(paciente_id, procedimiento_id, fecha, hora) {
     }
 }
 
+// === === === === === === === Pacientes  === === === === === === === 
+export async function getNombresPacientes() {
+    try {
+        const { data, error } = await supabase.from('Paciente').select('id, nombre');
+        if (error) {
+            throw new Error(error.message);
+        }
+        return data;
+    } catch (error) {
+        console.log('Error fetching Pacientes: ', error.message);
+        return null;
+    }
+}
 
+// === === === === === === === Procedimientos  === === === === === === === 
+export async function getNombresProcedimientos() {
+    try {
+        const { data, error } = await supabase.from('Procedimiento').select('id, nombre');
+        if (error) {
+            throw new Error(error.message);
+        }
+        return data;
+    } catch (error) {
+        console.log('Error fetching Pacientes: ', error.message);
+        return null;
+    }
+}
